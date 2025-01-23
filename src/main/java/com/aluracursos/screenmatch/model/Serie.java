@@ -30,8 +30,12 @@ public class Serie {
     private String actores;
     private String sinopsis;
 
-    @Transient
+    @OneToMany(mappedBy = "serie")
     private List<Episodio> episodio;
+
+    public Serie(){
+
+    }
 
     public Serie(DatosSerie datosSerie) {
         this.titulo = datosSerie.titulo();
@@ -110,6 +114,14 @@ public class Serie {
 
     public void setSinopsis(String sinopsis) {
         this.sinopsis = sinopsis;
+    }
+
+    public List<Episodio> getEpisodio() {
+        return episodio;
+    }
+
+    public void setEpisodio(List<Episodio> episodio) {
+        this.episodio = episodio;
     }
 
     @Override
