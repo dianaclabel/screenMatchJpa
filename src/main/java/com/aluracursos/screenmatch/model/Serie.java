@@ -30,7 +30,8 @@ public class Serie {
     private String actores;
     private String sinopsis;
 
-    @OneToMany(mappedBy = "serie")
+    //cascade nos permitira hacer los cambios en episodios se vera en series o viceversa
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
     private List<Episodio> episodio;
 
     public Serie(){
@@ -49,7 +50,6 @@ public class Serie {
         this.sinopsis = datosSerie.sinopsis();
         //Traduccion con chatGPT
         //this.sinopsis= ConsultaChatGPT.obtenerTraduccion(datosSerie.sinopsis());
-
     }
 
     public Long getId() {
