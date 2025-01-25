@@ -31,8 +31,8 @@ public class Serie {
     private String sinopsis;
 
     //cascade nos permitira hacer los cambios en episodios se vera en series o viceversa
-    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
-    private List<Episodio> episodio;
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Episodio> episodios;
 
     public Serie(){
 
@@ -116,12 +116,13 @@ public class Serie {
         this.sinopsis = sinopsis;
     }
 
-    public List<Episodio> getEpisodio() {
-        return episodio;
+    public List<Episodio> getEpisodios() {
+        return episodios;
     }
 
-    public void setEpisodio(List<Episodio> episodio) {
-        this.episodio = episodio;
+    public void setEpisodios(List<Episodio> episodios) {
+        episodios.forEach( e -> e.setSerie(this));
+        this.episodios = episodios;
     }
 
     @Override
@@ -133,7 +134,8 @@ public class Serie {
                 ", evaluacion=" + evaluacion +
                 ", poster='" + poster + '\'' +
                 ", actores='" + actores + '\'' +
-                ", sinopsis='" + sinopsis + '\'' ;
+                ", sinopsis='" + sinopsis + '\'' +
+                        ", episodios ='" + episodios ;
     }
 
 

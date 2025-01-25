@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ScreenmatchApplication implements CommandLineRunner {
 
-	//implementa una dependencia
+	//Implementa una dependencia
 	@Autowired
 	private SerieRepository repository;
 

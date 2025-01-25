@@ -22,18 +22,22 @@ public class Principal {
     private SerieRepository repositorio;
     private List<Serie> series;
 
+
+
     public Principal(SerieRepository repository) {
         this.repositorio = repository;
 
     }
 
     public void muestraElMenu() {
+
         var opcion = -1;
         while (opcion != 0) {
             var menu = """
                     1 - Buscar series 
                     2 - Buscar episodios
                     3 - Mostrar series buscadas
+                    4- buscar series por titulo
                                   
                     0 - Salir
                     """;
@@ -51,7 +55,9 @@ public class Principal {
                 case 3:
                     mostrarSeriesBuscadas();
                     break;
-
+                case 4:
+                    buscarSerieTitulo();
+                    break;
                 case 0:
                     System.out.println("Cerrando la aplicación...");
                     break;
@@ -77,6 +83,7 @@ public class Principal {
         System.out.println("Escribe el nombre de la serie de la cual quieres ver los episodios");
         var nombreSerie = teclado.nextLine();
 
+
         Optional<Serie> serie = series.stream()
                 .filter(s -> s.getTitulo().toLowerCase().contains(nombreSerie.toLowerCase()))
                 .findFirst();
@@ -99,13 +106,11 @@ public class Principal {
                             .collect(Collectors.toList());
 
             //serieEncontrada tiene un valor de serie.get() -> este tiene guardado una serie de tipo Serie que tiene metodos
-            serieEncontrada.setEpisodio(episodios);
+            serieEncontrada.setEpisodios(episodios);
             repositorio.save(serieEncontrada);
 
 
         }
-
-
 
 
     }
@@ -139,6 +144,23 @@ public class Principal {
         series.stream()
                 .sorted(Comparator.comparing(Serie::getGenero))
                 .forEach(System.out::println);
+
+    }
+
+    private void buscarSerieTitulo(){
+        System.out.println("Escribe el nombre de la serie que deseas buscar");
+        var nombreSerie = teclado.nextLine();
+
+        Optional<Serie> serieBuscada = repositorio.findByTituloContainsIgnoreCase(nombreSerie);
+
+
+        if (serieBuscada.isPresent()){
+            System.out.println("La serie buscada es: " + serieBuscada.get());
+        }else{
+            System.out.println("Serie no encontrada");
+        }
+
+
 
     }
 
