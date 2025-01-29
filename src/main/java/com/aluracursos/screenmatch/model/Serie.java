@@ -3,7 +3,8 @@ package com.aluracursos.screenmatch.model;
 import com.aluracursos.screenmatch.service.ConsultaChatGPT;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.persistence.*;
-import jdk.jfr.Category;
+
+
 
 import java.util.List;
 import java.util.OptionalDouble;
